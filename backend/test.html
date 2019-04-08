@@ -1,0 +1,35 @@
+<title> Test </title>
+
+<body>
+   <button id="getPlayers">Get Players 1</button>
+   <button id="getPlayers2">Get Players 2</button>
+   <div id="output"></div>
+   <script>
+      document.getElementById('getPlayers').addEventListener('click', getPlayers);
+      document.getElementById('getPlayers2').addEventListener('click', getPlayers2);
+
+      function getPlayers() {
+         fetch('https://api.opendota.com/api/proPlayers')
+         .then((res) => res.text())
+         .then((data) => console.log(data))
+      }
+
+      function getPlayers2() {
+         fetch('https://api.opendota.com/api/proPlayers')
+            .then((res) => res.json())
+            .then((data) => {
+               let output = '<h2>Players</h2>';
+               data.forEach(function(user) {
+                  output += `
+                  <ul>
+                     <li> ID: ${user.account_id}</li>
+                     <li> steamID: ${user.steamid}</li>
+                     <li> Avatar: ${user.avatar}</li>
+                  </ul>
+                  `;
+               });
+               document.getElementById('output').innerHTML = output;
+            })
+      }
+   </script>
+</body>

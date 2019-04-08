@@ -1,0 +1,17 @@
+.header {
+   width: 213px;
+   height: 56px;
+   left: 96px;
+   top: 9px;
+
+   font-family: Monda;
+   font-style: normal;
+   font-weight: normal;
+   line-height: 16px;
+   font-size: 16px;
+   text-align: center;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+
+   color: #000000;
+}

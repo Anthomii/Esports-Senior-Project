@@ -1,0 +1,37 @@
+h1 {
+   font-family: Monda;
+   font-style: normal;
+   font-weight: normal;
+   line-height: 20px;
+   font-size: 30px;
+   text-align: center;
+   letter-spacing: 0.04em;
+}
+
+p {
+   font-family: Monda;
+   line-height: 16px;
+   font-size: 40px;
+   letter-spacing: 0.04em;
+}
+
+.hero-image {
+   background-image: url("/assets/img/photo-1542751371-adc38448a05e.jpg"); /* The image used */
+   background-color: #cccccc; /* Used if the image is unavailable */
+   height: 500px; /* You must set a specified height */
+   background-position: center; /* Center the image */
+   background-repeat: no-repeat; /* Do not repeat the image */
+   background-size: cover;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  text-transform: uppercase;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: white;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
