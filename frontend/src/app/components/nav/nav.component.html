@@ -1,0 +1,18 @@
+<header>
+  <div class="container">
+    <a routerLink="/" class="logo">{{appTitle}}</a>
+    <nav>
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/dota-players">Dota2</a></li>
+        <li><a *ngIf="authService.loggedIn()" routerLink="/profile">Profile</a></li>
+        <li><a *ngIf="authService.loggedIn()" routerLink="/dashboard">Dashboard</a></li>
+        <li><a *ngIf="!authService.loggedIn()" routerLink="/register">Register</a></li>
+        <li><a *ngIf="!authService.loggedIn()" routerLink="/login">Login</a></li>
+        <!--<li class="nav-item" *ngIf="authService.loggedIn()"><a class="nav-link" (click)="onLogoutClick()" href="#">Logout</a></li>-->
+        <li><a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" href="#">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,24 @@
+<title> Dota 2 Players </title>
+
+<p>Tournaments:</p>
+<ul>
+
+   <div *ngFor="let league of leagues | async">
+      <li *ngIf="league.tier == 'professional'">
+            <td>{{ league.name }}</td>
+      </li>
+   </div>
+
+
+</ul>
+<p>Pro Players:</p>
+
+<ul>
+
+   <li *ngFor="let player of players | async">
+      <img src="{{ player.avatar }}" alt="user_avatar">
+     {{ player.name }}
+     Team: {{ player.team_name }}
+     <br>
+   </li>
+</ul>

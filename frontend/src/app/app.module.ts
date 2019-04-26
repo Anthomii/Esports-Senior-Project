@@ -1,18 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import {RouterModule, Routes} from '@angular/router';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { NavComponent } from './nav/nav.component';
-import { Nba2kComponent } from './nba2k/nba2k.component';
-import { MoreComponent } from './more/more.component';
-import { DotaPlayersComponent } from './dota-players/dota-players.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { NavComponent } from './components/nav/nav.component';
+import { MoreComponent } from './components/more/more.component';
+import { DotaPlayersComponent } from './components/dota-players/dota-players.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
-//connect the backend
-import { IssueService } from './issue.service';
+//Backend
+import { LeagueService } from './services/league.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ValidateService } from './services/validate.service';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -20,16 +31,22 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AboutComponent,
     NavComponent,
-    Nba2kComponent,
     MoreComponent,
-    DotaPlayersComponent
+    DotaPlayersComponent,
+    RegisterComponent,
+    DashboardComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    HttpModule,
+    FlashMessagesModule.forRoot()
   ],
-  providers: [IssueService],
+  providers: [LeagueService, ValidateService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

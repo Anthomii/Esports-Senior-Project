@@ -1,0 +1,44 @@
+header {
+  background: #ff
+}
+header .logo {
+   font-family: Monda;
+   font-style: normal;
+   font-weight: normal;
+   line-height: 16px;
+   font-size: 36px;
+   text-align: center;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+
+   color: #000000;
+}
+header nav {
+   justify-self: right;
+}
+header nav ul {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+
+/*list items in the nav */
+header nav ul li {
+   float: left;
+}
+header nav ul li a {
+   font-family: Roboto;
+   font-style: normal;
+   font-weight: normal;
+   line-height: 16px;
+   font-size: 14px;
+   text-align: center;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+   padding: 1em;
+
+   color: rgba(0, 0, 0, 0.88);
+}
+header nav ul li a:hover {
+   color: #0066CC;
+}

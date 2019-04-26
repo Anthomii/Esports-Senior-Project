@@ -1,0 +1,16 @@
+h2 {
+   font-family: Monda;
+   font-style: normal;
+   font-weight: normal;
+   line-height: 20px;
+   font-size: 30px;
+   text-align: center;
+   letter-spacing: 0.04em;
+}
+
+p {
+   font-family: Monda;
+   line-height: 16px;
+   font-size: 40px;
+   letter-spacing: 0.04em;
+}
