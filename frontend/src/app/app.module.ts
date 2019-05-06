@@ -24,6 +24,12 @@ import { ValidateService } from './services/validate.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { RectangleComponent } from './components/rectangle/rectangle.component';
+import { LeagueModalComponent } from './components/league-modal/league-modal.component';
+import { DraftingPageComponent } from './components/drafting-page/drafting-page.component';
+import { DraftParticipantsComponent } from './components/draft-participants/draft-participants.component';
+import { DraftDraftedComponent } from './components/draft-drafted/draft-drafted.component';
+import { DraftPlayersComponent } from './components/draft-players/draft-players.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,13 @@ import { AuthGuard } from './guards/auth.guard';
     RegisterComponent,
     DashboardComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    RectangleComponent,
+    LeagueModalComponent,
+    DraftingPageComponent,
+    DraftParticipantsComponent,
+    DraftDraftedComponent,
+    DraftPlayersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<ul>
+   <li *ngFor="let player of players | async">
+      <img src="{{ player.avatar }}" alt="user_avatar">
+     {{ player.name }}
+     <br>
+   </li>
+</ul>

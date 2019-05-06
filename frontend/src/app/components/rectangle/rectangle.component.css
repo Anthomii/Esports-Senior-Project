@@ -1,0 +1,19 @@
+.rectangle {
+  /*padding-top: 100px;*/
+  padding: 20px;
+  display: block;
+  margin: 0px;
+  height: 350px;
+
+  width: 100%;
+  border: 3px solid black;
+  background-color: (255,255,255);
+}
+
+.p1{
+   text-align: left;
+}
+
+.league-button {
+   padding: 5px;
+}

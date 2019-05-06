@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { DraftingPageComponent } from './components/drafting-page/drafting-page.component';
 
 const routes: Routes = [
    { path: '', component: HomeComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
    { path: 'dota-players', component: DotaPlayersComponent},
    { path: 'register', component: RegisterComponent},
    { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+   { path: 'drafting-page', component: DraftingPageComponent},
    { path:'login', component: LoginComponent},
    { path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
 ];
