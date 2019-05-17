@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerService} from "../../services/player.service";
 
 @Component({
   selector: 'app-draft-participants',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DraftParticipantsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private playerService : PlayerService) { }
 
   ngOnInit() {
+    // this.playerService.getPlayers().subscribe((players) => {
+    //   console.log(players);
+    // });
   }
 
 }

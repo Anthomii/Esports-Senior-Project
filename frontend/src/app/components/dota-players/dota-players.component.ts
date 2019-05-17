@@ -14,6 +14,7 @@ export class DotaPlayersComponent implements OnInit {
   ngOnInit() {
      this.players = this.leagueService.getPlayers();
      this.leagues = this.leagueService.getLeagues();
+     console.log(this.players);
 
   }
 
