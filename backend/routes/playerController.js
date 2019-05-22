@@ -10,6 +10,8 @@ const Player = require('../models/player');
 //     //mongo.get(req.paramsPlayerID)
 // });
 
+//METHODS HERE IMPLEMENTS GET/POST/DELETE
+
 //get
 router.get('/:playerID?', (req, res) => {
 
@@ -24,28 +26,35 @@ router.get('/:playerID?', (req, res) => {
     }
     else {
         //get unique id - player
-        Player.find({}, function (err, docs) {
-            if(!err) {
-                for(var i = 0; i < docs.length; i++) {
-                    if(docs[i].accountID === req.params.playerID) {
-                        return res.json(docs[i]);
-                    }
-                }
-            } else { throw err; }
+
+        Player.getByAccountId(req.params.playerID, function (err, id) {
+            if(err) throw (err);
+            if(!id) {return res.json({success: false, msg: "id not found"});}
+            console.log(id);
+            return res.json(id);
+
         });
-        //
-        // Player.findById({accountID: req.params.playerID}, (err, player) => {
-        //     if(err) {console.log(err);}
-        //     else {res.json(player);}
-        // });
-        // Player.find({accountID: req.param.playerID}, (err, player) => {
-        //     if(err) {console.log(err);}
-        //     else {res.json(player);}
-        // });
     }
     //console.log(req.params.playerID);
 
     //mongo.get(req.paramsPlayerID)
+});
+
+router.post('/add', function (req, res) {
+    let newPlayer = new Player({
+       accountID: req.body.accountID,
+       name: req.body.name,
+       avatar: req.body.avatar
+    });
+
+    Player.addPlayer(newPlayer, function (err, player) {
+       if (err) {
+           res.json({success: false, msg: 'failed to add new player'});
+       }
+       else {
+           res.json({success: true, msg: 'added new player'});
+       }
+    });
 });
 
 module.exports = router;

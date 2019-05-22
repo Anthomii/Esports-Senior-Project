@@ -7,5 +7,23 @@ var schema = new Schema({
     avatar: {type: String, required: true},
 });
 
-module.exports = mongoose.model('Player', schema);
+const Player = module.exports = mongoose.model('Player', schema);
+
+module.exports.getByAccountId = function (accountID, callback) {
+    const query = {accountID: accountID};
+    Player.findOne(query, callback);
+};
+
+module.exports.getAllPlayers = function () {
+    Player.find();
+};
+
+module.exports.addPlayer = function (newPlayer, callback){
+    newPlayer.save(callback);
+};
+
+module.exports.deletePlayer = function () {
+
+};
+
 

@@ -5,15 +5,67 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 
+router.delete('/deleteLeagues', function (req, res) {
+  User.resetOnLeagues(function (err) {
+    if(err) {
+      res.json({success: false, msg: 'failed to delete all leagues'});
+      //throw(err);
+    }
+    else {
+      res.json({success: true, msg: 'deleted all leagues from users'});
+    }
+  });
+});
+
+router.post('/update', (req, res) => {
+  let newUser = User ({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    leagues: req.body.leagues
+  });
+
+  User.updateUserOnLeagues(newUser, function (err, docs) {
+    if (err) {
+      res.json({success: false, msg: 'failed to update user'});
+    }
+    else {
+      //console.log(docs);
+      res.json(docs)
+    }
+  });
+});
+
+
+router.post('/updateUserLeagueList/:username/:leagueId?', (req, res) => {
+  if(req.params.leagueId === undefined) {
+    res.json({success: false, msg: 'Failed to update user'});
+  }
+  else {
+    User.pushLeagueId(req.params.username, req.params.leagueId, function (err, res) {
+      if(err) {
+        res.json({success: false, msg: 'Failed to push leagueId to user'});
+      }
+      else {
+        res.json({success: true, msg: 'pushed leagueid'});
+      }
+    });
+    //res.json({success: success, msg: 'updated a user'});
+  }
+
+});
+
 // Register
 router.post('/register', (req, res, next) => {
-  console.log("HELLO");
+  //console.log("HELLO");
   let newUser = new User ({
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password
-  })
+    password: req.body.password,
+    leagues: null
+  });
 
 
   User.addUser(newUser, (err, user) => {
@@ -28,6 +80,28 @@ router.post('/register', (req, res, next) => {
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   res.json({user: req.user});
+});
+
+// get all users
+router.get('/:username?', function(req, res) {
+  if(req.params.username === undefined) {
+    //console.log("NOTHING IN HERE");
+    User.find({}, function(err, docs) {
+      if (!err){
+        //console.log(docs);
+        return res.json(docs);
+      } else {throw err;}
+    });
+  }
+  else {
+    //get unique id - league
+    User.getUserByUsername(req.params.username, function (err, id) {
+      if(err) throw (err);
+      if(!id) {return res.json({success: false, msg: "id not found"});}
+      //console.log(id);
+      return res.json(id);
+    });
+  }
 });
 
 // Authenticate

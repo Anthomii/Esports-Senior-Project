@@ -1,0 +1,25 @@
+
+<form #createLeague = "ngForm" (ngSubmit)="onSubmit(createLeague)">
+  <input required type = "text" #leagueName = "ngModel" [(ngModel)]="leagueService.selectedLeague.leagueName" name="leagueName" placeholder="League Name">
+  <input #newUser (keyup.enter)="addUser(newUser.value); newUser.value = ''" (blur)="addUser(newUser.value); newUser.value=''" placeholder='Invite a friend'>
+
+  <input type="submit" value="Create League" onclick="location.href = '/dashboard'">
+</form>
+
+<div class="success" *ngIf = "showSuccessMessage">
+  Saved League Successfully.
+</div>
+
+<ul>
+  <li *ngFor="let user of users | async">
+    {{ user.name }}, {{ user.username }}
+    <br>
+  </li>
+</ul>
+
+
+<button (click)="addUser(newUser.value)">Add</button>
+
+<p> Invited: </p>
+<ul><li *ngFor="let user of current_users">{{user}}</li></ul>
+

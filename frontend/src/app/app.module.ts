@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 
 //Components
@@ -34,6 +35,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { PlayerService } from './services/player.service';
 import {Player} from "@angular/core/src/render3/interfaces/player";
+import { CreateLeaguePageComponent } from './components/create-league-page/create-league-page.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import {Player} from "@angular/core/src/render3/interfaces/player";
     DraftingPageComponent,
     DraftParticipantsComponent,
     DraftDraftedComponent,
-    DraftPlayersComponent
+    DraftPlayersComponent,
+    CreateLeaguePageComponent
   ],
   imports: [
     BrowserModule,

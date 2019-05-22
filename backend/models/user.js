@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+var Schema = mongoose.Schema;
 const config = require('../config/database');
+const League = require('./league');
 
 // User Schema
-const UserSchema = mongoose.Schema ({
+const UserSchema = Schema ({
   name: {
     type: String
   },
@@ -18,6 +20,10 @@ const UserSchema = mongoose.Schema ({
   password: {
     type: String,
     required: true
+  },
+  leagues: {
+    type: [String], // type League
+    required: false
   }
 });
 
@@ -48,3 +54,24 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
     callback(null, isMatch);
   });
 };
+
+module.exports.updateUserOnLeagues = function(newUser, callback) {
+  let temp_username = newUser.username;
+  //console.log(temp_username);
+  const query  = {username : temp_username};
+  //let find_user = User.findOne(query);
+  //find_user.leagues.push(leagueId);
+  //User.findOne(query, callback);
+  User.updateOne(query, {$set : {leagues : newUser.leagues}}, callback);
+};
+
+module.exports.resetOnLeagues = function(callback) {
+  //let temp_username = newUser.username;
+  //console.log(temp_username);
+  //const query  = {username : temp_username};
+  //let find_user = User.findOne(query);
+  //find_user.leagues.push(leagueId);
+  //User.findOne(query, callback);
+  User.updateMany({}, {$set : {leagues : []}}, callback);
+};
+

@@ -12,7 +12,7 @@ export class DotaPlayersComponent implements OnInit {
   constructor(private leagueService: LeagueService) { }
 
   ngOnInit() {
-     this.players = this.leagueService.getPlayers();
+
      this.leagues = this.leagueService.getLeagues();
      console.log(this.players);
 
