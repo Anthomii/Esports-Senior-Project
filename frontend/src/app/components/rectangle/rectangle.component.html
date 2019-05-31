@@ -1,7 +1,13 @@
 <div class = "rectangle">
    <div class = "row">
       <div class = "col"> 
-         <p class = "p1">Draft your own league!</p>
+         <p class = "p1">
+           <!--HELLO {{name.toUpperCase()}}!!<br>-->
+           Draft your own league!<br>
+           Invite your friends!<br>
+           Who can draft the better team!?!?<br>
+           {{selected_league_id}}
+         </p>
       </div>
       <div class = "col"> 
          <div class = "row"> 
@@ -9,21 +15,31 @@
                <p class = "p1">My leagues</p>
             </div>
          </div>
-         <div class = "row"> 
-            <div class = "col"> 
-               <div class = "league-button">
-               <button type="button" class="btn btn-primary btn-lg btn-block text-left" routerLink = "/drafting-page">League_1</button>
-               </div>
-            </div>
-         </div>
-         <div class = "row"> 
-            <div class = "col"> 
-               <div class = "league-button">
-                  <!--<app-league-modal> </app-league-modal>-->
-                 <button type="button" class="btn btn-primary btn-lg btn-block text-left" routerLink = "/drafting-page">Create New League</button>
-               </div>
-            </div>
-         </div>
+          <div class="vertical-menu">
+            <a href="#" class="active">Home</a>
+            <!--<a href="#">Link 1</a>-->
+            <a *ngFor="let leagues of league_names; let i = index" (click)="setupAndMoveToDraft(league_names[i], my_leagues[i])">
+              {{i}}, {{league_names[i]}} {{my_leagues[i]}}
+            </a>
+            <!--<button onclick="printID" type="button" *ngFor="let name of league_names; let i = index">-->
+              <!--{{name}}-->
+            <!--</button>-->
+          </div>
+         <!--<div class = "row"> -->
+            <!--<div class = "col"> -->
+               <!--<div class = "league-button">-->
+               <!--<button type="button" class="btn btn-primary btn-lg btn-block text-left" routerLink = "/drafting-page">League_1</button>-->
+               <!--</div>-->
+            <!--</div>-->
+         <!--</div>-->
+         <!--<div class = "row"> -->
+            <!--<div class = "col"> -->
+               <!--<div class = "league-button">-->
+                  <!--&lt;!&ndash;<app-league-modal> </app-league-modal>&ndash;&gt;-->
+                 <!--<button type="button" class="btn btn-primary btn-lg btn-block text-left" routerLink = "/drafting-page">Create New League</button>-->
+               <!--</div>-->
+            <!--</div>-->
+         <!--</div>-->
          
       </div>
    </div>

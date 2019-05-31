@@ -17,7 +17,7 @@ router.get('/:leagueID?', (req, res) => {
     }
     else {
         //get unique id - league
-        League.getByLeagueId(req.params.playerID, function (err, id) {
+        League.getByLeagueId(req.params.leagueID, function (err, id) {
             if(err) throw (err);
             if(!id) {return res.json({success: false, msg: "id not found!!"});}
             console.log(id);

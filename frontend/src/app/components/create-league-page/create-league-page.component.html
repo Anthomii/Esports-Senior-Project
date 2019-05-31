@@ -3,7 +3,8 @@
   <input required type = "text" #leagueName = "ngModel" [(ngModel)]="leagueService.selectedLeague.leagueName" name="leagueName" placeholder="League Name">
   <input #newUser (keyup.enter)="addUser(newUser.value); newUser.value = ''" (blur)="addUser(newUser.value); newUser.value=''" placeholder='Invite a friend'>
 
-  <input type="submit" value="Create League" onclick="location.href = '/dashboard'">
+  <input type="submit" value="Create League">
+  <!--onclick="location.href = '/dashboard'"-->
 </form>
 
 <div class="success" *ngIf = "showSuccessMessage">

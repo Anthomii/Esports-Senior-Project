@@ -16,7 +16,7 @@ var schema = new Schema({
 const League = module.exports = mongoose.model('League', schema);
 
 module.exports.getByLeagueId = function (leagueID, callback) {
-    const query = {leagueID:leagueID};
+    const query = {_id:leagueID};
     League.findOne(query, callback);
 };
 

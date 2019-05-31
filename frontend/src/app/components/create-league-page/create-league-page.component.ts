@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LeagueService } from "../../services/league.service";
 import { AuthService } from "../../services/auth.service";
 import { NgForm } from "@angular/forms";
+import { JwtHelperService } from '@auth0/angular-jwt';
 import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
@@ -24,7 +25,10 @@ export class CreateLeaguePageComponent implements OnInit {
 
   ngOnInit() {
     this.users = this.authService.getAllUsers();
-    //console.log('HI');
+
+
+    //getting token username, defines "ME"
+    console.log(JSON.parse(localStorage.getItem('user')).username);
     //console.log(typeof this.users);
     //console.log(Object.values(this.users));
   }
@@ -35,8 +39,9 @@ export class CreateLeaguePageComponent implements OnInit {
 
     let league_id;
     this.leagueService.postLeague().subscribe(res => {
-        league_id = res._id;
-        this.passLeagueIdToUsers(league_id);
+        // @ts-ignore
+      league_id = res._id;
+      this.passLeagueIdToUsers(league_id);
     }, error1 => {
       throw(error1);
     });
@@ -57,17 +62,25 @@ export class CreateLeaguePageComponent implements OnInit {
   }
 
   passLeagueIdToUsers(leagueId : String) {
+    //console.log("in passLeagueIdtoUsers" + leagueId);
+    //console.log(this.current_users);
     this.current_users.forEach(username => {
       // console.log(username);
       // console.log(leagueId);
+      console.log("username: " + username);
       let temp_user = this.authService.getUser(username);
       temp_user.subscribe(res => {
         //console.log("RAWR");
         //console.log(res);
+        // @ts-ignore
         if(res.leagues === undefined || res.leagues === null) {
+          // @ts-ignore
           res.leagues = [];
         }
+        //console.log(res.leagues);
+        // @ts-ignore
         res.leagues.push(leagueId);
+        //console.log(res.leagues);
         this.authService.updateUser(res).subscribe(res_2 => {
           //console.log("update user?");
           //console.log(res_2);
@@ -85,10 +98,12 @@ export class CreateLeaguePageComponent implements OnInit {
       //console.log(newUser);
       //console.log(this.users);
       this.authService.getUser(newUser).subscribe(res => {
+        // @ts-ignore
         if(res.valueOf().success == false) {
           console.log('not in db');
         }
         else {
+          // @ts-ignore
           var temp_user = res.valueOf().username;
           if(this.current_users.find((name) => {return name == temp_user;}) == undefined) {
             this.current_users.push(temp_user);

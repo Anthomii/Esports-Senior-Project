@@ -21,6 +21,7 @@ const routes: Routes = [
    { path: 'register', component: RegisterComponent},
    { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
    { path: 'drafting-page', component: DraftingPageComponent},
+   { path: 'drafting-page/:leagueId', component: DraftingPageComponent},
    { path: 'login', component: LoginComponent},
    { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
    { path: 'create-league', component: CreateLeaguePageComponent }

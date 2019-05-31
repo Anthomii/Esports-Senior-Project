@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Headers} from "@angular/http";
 import {map} from "rxjs/operators";
 
@@ -11,17 +11,38 @@ import {League} from '../models/league.model';
 })
 export class LeagueService {
 
+  // private messageSource = new BehaviorSubject<string>("default message");
+  // currentMessage = this.messageSource.asObservable();
+  //
+  // changeMessage(message: string) {
+  //   this.messageSource.next(message);
+  // }
+  //
+  // getMessage() {
+  //   return this.messageSource.getValue();
+  // }
+  private subject = new Subject<any>();
+
+  sendMessage(message: string) {
+    this.subject.next({text : message});
+  }
+
+  clearMessage() {
+    this.subject.next();
+  }
+
+  getMessage() : Observable<any> {
+    return this.subject.asObservable();
+  }
+
+
   uri = 'http://localhost:3000';
 
   selectedLeague : League = {
-    leagueID: 0,
     leagueName: '',
     usersIdList: []
   };
 
-  incrementLeagueId() {
-    this.selectedLeague.leagueID += 1;
-  }
   resetLeague() {
     this.selectedLeague.leagueName = '';
     this.selectedLeague.usersIdList = [];
@@ -46,6 +67,10 @@ export class LeagueService {
     });
     data.subscribe(data => {return data;});
     return data;
+  }
+
+  getLeague(leagueId : string) {
+    return this.http.get(`${this.uri}/leagues/${leagueId}`);
   }
 
   postLeague() {

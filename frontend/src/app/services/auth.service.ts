@@ -13,7 +13,7 @@ import { User } from "../models/user.model";
 })
 export class AuthService {
   authToken: any;
-  user: any;
+  static user: any;
 
   uri = 'http://localhost:3000';
 
@@ -24,7 +24,9 @@ export class AuthService {
     leagues: []
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    AuthService.user = null;
+  }
 
   getUser(user : String) {
     return this.http.get(`${this.uri}/users/${user}`);
@@ -74,7 +76,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers});
-      //.pipe(map(res => res.json()));
+      //.pipe(map(res => JSON.stringify(res)));
   }
 
   getProfile() {
@@ -90,7 +92,10 @@ export class AuthService {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
-    this.user = user;
+    AuthService.user = user;
+
+    console.log("STORING USER DATA: ");
+    console.log(AuthService.user);
   }
 
   loadToken() {
@@ -107,7 +112,7 @@ export class AuthService {
 
   logout() {
     this.authToken = null;
-    this.user = null;
+    AuthService.user = null;
     localStorage.clear();
   }
 }

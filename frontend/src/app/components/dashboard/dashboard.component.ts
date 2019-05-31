@@ -9,11 +9,12 @@ import {LeagueService} from "../../services/league.service";
 export class DashboardComponent implements OnInit {
   leagues;
 
+
   constructor(private leagueService : LeagueService) { }
 
   ngOnInit() {
     this.leagues = this.leagueService.getLeagues();
-    console.log(this.leagues);
+
     // .subscribe((players) => {
     // console.log(players);
   }
