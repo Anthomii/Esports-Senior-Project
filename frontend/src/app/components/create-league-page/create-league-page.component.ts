@@ -56,7 +56,6 @@ export class CreateLeaguePageComponent implements OnInit {
   }
 
   resetForm(form : NgForm) {
-    this.leagueService.incrementLeagueId();
     this.leagueService.resetLeague();
     form.resetForm();
   }
