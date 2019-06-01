@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LeagueService } from "../../services/league.service";
-//import {Subscription} from "rxjs";
 import { ActivatedRoute } from '@angular/router'
-import {League} from "../../models/league.model";
+import { League } from "../../models/league.model";
+import { DraftService } from "../../services/draft.service";
 
 @Component({
   selector: 'app-drafting-page',
@@ -16,10 +16,12 @@ export class DraftingPageComponent implements OnInit {
   league_name : string;
   league_user_list : string[];
 
-  constructor(private leagueService : LeagueService, private activatedRoute:ActivatedRoute) { }
+  selected_user : string;
+  selected_pro : string;
+
+  constructor(private leagueService : LeagueService, private activatedRoute:ActivatedRoute, private draftService:DraftService) { }
 
   ngOnInit() {
-    //console.log("drafting init");
 
     this.activatedRoute.paramMap.subscribe(params => {
       if(params) {
@@ -34,6 +36,15 @@ export class DraftingPageComponent implements OnInit {
       //console.log(this.selected_league);
       this.league_name = this.selected_league.leagueName;
       this.league_user_list = this.selected_league.usersIdList;
+      console.log(this.draftService.test_string);
+      this.draftService.setParticipantList(this.league_user_list);
+      this.draftService.getSelectedUser().subscribe(res => {
+        this.selected_user = res;
+        //console.log(this.selected_user);
+      });
+      this.draftService.getSelectedPro().subscribe(res => {
+        this.selected_pro = res;
+      });
       //console.log(this.league_name);
       //console.log(this.league_user_list);
     });

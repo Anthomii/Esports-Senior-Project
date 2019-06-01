@@ -25,17 +25,19 @@ import { DraftingPageComponent } from './components/drafting-page/drafting-page.
 import { DraftParticipantsComponent } from './components/draft-participants/draft-participants.component';
 import { DraftDraftedComponent } from './components/draft-drafted/draft-drafted.component';
 import { DraftPlayersComponent } from './components/draft-players/draft-players.component';
+import { CreateLeaguePageComponent } from './components/create-league-page/create-league-page.component';
 
 //Backend
 import { LeagueService } from './services/league.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ValidateService } from './services/validate.service';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
+import { ValidateService } from './services/validate.service';
 import { PlayerService } from './services/player.service';
+import { DraftService } from "./services/draft.service";
+import { HttpClientModule } from '@angular/common/http';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
 import {Player} from "@angular/core/src/render3/interfaces/player";
-import { CreateLeaguePageComponent } from './components/create-league-page/create-league-page.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +67,7 @@ import { CreateLeaguePageComponent } from './components/create-league-page/creat
     HttpModule,
     FlashMessagesModule.forRoot()
   ],
-  providers: [LeagueService, ValidateService, AuthService, AuthGuard, PlayerService],
+  providers: [LeagueService, ValidateService, AuthService, AuthGuard, PlayerService, DraftService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

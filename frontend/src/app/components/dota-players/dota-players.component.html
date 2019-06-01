@@ -2,14 +2,11 @@
 
 <p>Tournaments:</p>
 <ul>
-
    <div *ngFor="let league of leagues | async">
       <li *ngIf="league.tier == 'professional'">
             <td>{{ league.name }}</td>
       </li>
    </div>
-
-
 </ul>
 <p>Pro Players:</p>
 

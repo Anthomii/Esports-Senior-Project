@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LeagueService } from '../../services/league.service';
 import { PlayerService} from "../../services/player.service";
-
+import { DraftService } from "../../services/draft.service";
 
 @Component({
   selector: 'app-draft-players',
@@ -9,16 +9,21 @@ import { PlayerService} from "../../services/player.service";
   styleUrls: ['./draft-players.component.css']
 })
 export class DraftPlayersComponent implements OnInit {
-  players;
+  player_list;
 
-  constructor(private playerService : PlayerService) { }
+  constructor(private playerService : PlayerService, private draftService : DraftService) { }
 
   ngOnInit() {
-      //this.players = this.playerService.getPlayers();
-      //console.log(this.players);
+      this.player_list = this.playerService.getPlayers();
+      console.log(this.player_list);
         // .subscribe((players) => {
         // console.log(players);
-      }
+  }
+
+  clickOnPro(pro : string) {
+    this.draftService.setSelectedPro(pro);
+  }
+
 
 
   }
