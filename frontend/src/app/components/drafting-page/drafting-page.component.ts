@@ -11,11 +11,11 @@ import { DraftService } from "../../services/draft.service";
 })
 export class DraftingPageComponent implements OnInit {
 
-  selected_league_id : string;
   selected_league : League;
   league_name : string;
   league_user_list : string[];
 
+  selected_league_id : string;
   selected_user : string;
   selected_pro : string;
 
@@ -36,7 +36,6 @@ export class DraftingPageComponent implements OnInit {
       //console.log(this.selected_league);
       this.league_name = this.selected_league.leagueName;
       this.league_user_list = this.selected_league.usersIdList;
-      console.log(this.draftService.test_string);
       this.draftService.setParticipantList(this.league_user_list);
       this.draftService.getSelectedUser().subscribe(res => {
         this.selected_user = res;
@@ -53,5 +52,22 @@ export class DraftingPageComponent implements OnInit {
 
   func() {
     console.log(this.selected_league_id);
+  }
+
+  onClickDraft() {
+    //console.log("start drafting process");
+    this.draftService.newDraft.leagueId = this.selected_league_id;
+    this.draftService.newDraft.leagueName = this.league_name;
+    this.draftService.newDraft.participantName = this.selected_user;
+    this.draftService.newDraft.proName = this.selected_pro;
+    this.draftService.addDraft().subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+    console.log("init draft obj fields");
+    //console.log(this.selected_pro);
+    //console.log(this.selected_user);
+
   }
 }

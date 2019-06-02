@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Draft } from "../models/draft.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DraftService {
-  test_string = "test";
+  uri = 'http://localhost:3000';
 
   private participant_list = new BehaviorSubject<string[]>([]);
   private selected_user = new BehaviorSubject<string>("default selected user");
   private selected_pro = new BehaviorSubject<string>("default selected pro player");
 
-  constructor() { }
+  newDraft : Draft = {
+    leagueId : "",
+    leagueName : "",
+    participantName : "",
+    proName : ""
+  };
+
+  constructor(private http: HttpClient) { }
 
   getParticipantList() {
     return this.participant_list.asObservable();
@@ -35,6 +44,13 @@ export class DraftService {
 
   setSelectedPro(pro : string) {
     this.selected_pro.next(pro);
+  }
+
+  addDraft() {
+    //console.log("start addDraft");
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`${this.uri}/drafts/add`, this.newDraft, {headers:headers});
   }
 
 }

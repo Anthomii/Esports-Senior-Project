@@ -10,17 +10,6 @@ import {League} from '../models/league.model';
   providedIn: 'root'
 })
 export class LeagueService {
-
-  // private messageSource = new BehaviorSubject<string>("default message");
-  // currentMessage = this.messageSource.asObservable();
-  //
-  // changeMessage(message: string) {
-  //   this.messageSource.next(message);
-  // }
-  //
-  // getMessage() {
-  //   return this.messageSource.getValue();
-  // }
   private subject = new Subject<any>();
 
   sendMessage(message: string) {
