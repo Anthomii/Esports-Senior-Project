@@ -57,4 +57,25 @@ router.post('/add', function (req, res) {
     });
 });
 
+router.post('/update', (req, res) => {
+    let newPlayer = Player ({
+        _id : req.body._id,
+        accountID: req.body.accountID,//steamid
+        name: req.body.name,
+        avatar: req.body.avatar,
+        points: req.body.points
+    });
+
+    Player.updatePlayerOnPoints(newPlayer, function (err, docs) {
+        if (err) {
+            res.json({success: false, msg: 'failed to update player'});
+        }
+        else {
+            //console.log(docs);
+            res.json(docs)
+        }
+    });
+});
+
+
 module.exports = router;

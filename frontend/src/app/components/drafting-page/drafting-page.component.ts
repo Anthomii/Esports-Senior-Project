@@ -3,7 +3,9 @@ import { LeagueService } from "../../services/league.service";
 import { ActivatedRoute } from '@angular/router'
 import { League } from "../../models/league.model";
 import { DraftService } from "../../services/draft.service";
-import {Draft} from "../../models/draft.model";
+import { Draft } from "../../models/draft.model";
+import { Player } from "../../models/player.model";
+import {PlayerService} from "../../services/player.service";
 
 @Component({
   selector: 'app-drafting-page',
@@ -20,7 +22,10 @@ export class DraftingPageComponent implements OnInit {
   selected_user : string;
   selected_pro : string;
 
-  constructor(private leagueService : LeagueService, private activatedRoute:ActivatedRoute, private draftService:DraftService) { }
+  pro_players_list : any;
+
+  constructor(private leagueService : LeagueService, private activatedRoute:ActivatedRoute, private draftService:DraftService,
+              private playerService : PlayerService) { }
 
   ngOnInit() {
 
@@ -46,10 +51,7 @@ export class DraftingPageComponent implements OnInit {
       this.draftService.getSelectedPro().subscribe(res => {
         this.selected_pro = res;
       });
-      //console.log(this.league_name);
-      //console.log(this.league_user_list);
     });
-
   }
 
   func() {
@@ -89,5 +91,28 @@ export class DraftingPageComponent implements OnInit {
 
   onClickPlay() {
     console.log("why hello there");
+    this.playerService.getPlayers().subscribe(res => {
+      this.pro_players_list = res;
+      for(let i = 0; i < this.pro_players_list.length; i++) {
+        let player : Player;
+        player = this.pro_players_list[i];
+        //console.log(player._id);
+        if(player.points === undefined) {
+          player.points = new Number;
+        }
+        player.points = 1;
+        console.log(player);
+        this.playerService.setNewPlayer(player.accountID, player.name, player.avatar, player.points);
+        this.playerService.updatePlayer().subscribe(res => {
+          console.log(res);
+        }, err => {
+          console.log(err);
+        });
+        this.playerService.resetNewPlayer();
+      }
+
+    }, err => {
+      console.log(err);
+    });
   }
 }

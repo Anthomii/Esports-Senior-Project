@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from "rxjs";
+import { Player } from "../models/player.model";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,31 @@ export class PlayerService {
 
   uri = 'http://localhost:3000';
 
-  constructor(private http: HttpClient)  {}
+  newPlayer: Player = {
+    accountID: "", //steamid
+    name: "",
+    avatar: "",
+    points: 0
+  };
 
-  getPlayers() : Observable<Object> {
+  constructor(private http: HttpClient) {
+  }
+
+  setNewPlayer(acc, name, av, p) {
+    this.newPlayer.accountID = acc;
+    this.newPlayer.name = name;
+    this.newPlayer.avatar = av;
+    this.newPlayer.points = p;
+  }
+
+  resetNewPlayer() {
+    this.newPlayer.accountID = "";
+    this.newPlayer.name = "";
+    this.newPlayer.avatar = "";
+    this.newPlayer.points = 0;
+  }
+
+  getPlayers(): Observable<Object> {
     const data = Observable.create(observer => {
       fetch(`${this.uri}/players`)
         .then(response => response.json())
@@ -22,31 +45,19 @@ export class PlayerService {
         })
         .catch(err => observer.error(err));
     });
-    data.subscribe(data => {return data;});
+    data.subscribe(data => {
+      return data;
+    });
     return data;
   }
-  //
-  // getPlayerByID(id) {
-  //   return this.http.get('${this.uri}/players/${id}');
-  // }
-  //
+
   addPlayer(player) {
     return this.http.post(`${this.uri}/players/add`, player);
   }
-  //
-  // updatePlayer(id, name, avatar, drafted){
-  //   const player = {
-  //     name: name,
-  //     avatar: avatar,
-  //     drafted: drafted
-  //
-  //   };
-  //
-  //   return this.http.post('${this.uri}/players/update/${id}', player);
-  // }
-  //
-  // deletePlayer(id) {
-  //   return this.http.delete('${this.uri}/players/delete/${id}');
-  // }
 
+  updatePlayer() {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`${this.uri}/players/update`, this.newPlayer, {headers: headers});
+  }
 }
