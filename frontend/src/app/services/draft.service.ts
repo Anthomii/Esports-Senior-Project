@@ -12,6 +12,8 @@ export class DraftService {
   private participant_list = new BehaviorSubject<string[]>([]);
   private selected_user = new BehaviorSubject<string>("default selected user");
   private selected_pro = new BehaviorSubject<string>("default selected pro player");
+  private selected_league = new BehaviorSubject<string>("default selected league");
+  private pro_players_list = new BehaviorSubject<string[]>([]);
 
   newDraft : Draft = {
     leagueId : "",
@@ -46,11 +48,49 @@ export class DraftService {
     this.selected_pro.next(pro);
   }
 
+  getSelectedLeague() {
+    return this.selected_league.asObservable();
+  }
+
+  setSelectedLeague(league : string) {
+    this.selected_league.next(league);
+  }
+
+  getProPlayers() {
+    return this.pro_players_list.asObservable();
+  }
+
+  setProPlayers(players : string[]) {
+    this.pro_players_list.next(players);
+  }
+
+
   addDraft() {
     //console.log("start addDraft");
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.uri}/drafts/add`, this.newDraft, {headers:headers});
   }
+
+  getDraft(leagueId : string, partName : string) {
+    return this.http.get(`${this.uri}/drafts/${leagueId}/${partName}`);
+  }
+
+  getDraftByLeague(leagueId : string) {
+    return this.http.get(`${this.uri}/drafts/${leagueId}`);
+  }
+
+  deleteDraftByLeagueAndPart(league_id : string, part_name : string) {
+    return this.http.delete(`${this.uri}/drafts/delete/${league_id}/${part_name}`);
+  }
+
+  deleteDraftByLeagueAndPro(league_id : string, pro_name : string) {
+    //let headers = new HttpHeaders();
+    //headers.append('Content-Type', 'application/json');
+    return this.http.delete(`${this.uri}/drafts/deletebypro/${league_id}/${pro_name}`);
+  }
+
+
+
 
 }

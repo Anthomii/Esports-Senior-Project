@@ -24,7 +24,6 @@ module.exports.addLeague = function (newLeague, callback) {
     newLeague.save(callback);
 };
 
-
 module.exports.deleteByLeagueId = function (leagueId, callback) {
     const query = {leagueID:leagueId};
     League.deleteOne(query, callback);

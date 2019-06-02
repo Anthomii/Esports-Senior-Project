@@ -24,34 +24,7 @@ router.get('/:leagueID?', (req, res) => {
             return res.json(id);
         });
     }
-    //console.log(req.params.playerID);
-
-    //mongo.get(req.paramsPlayerID)
 });
-//get by user ..... wrong dataset ... can only get league by userid from
-// router.get('/usersLeague/:userID?', (req, res) => {
-//
-//     if(req.params.leagueID === undefined) {
-//         console.log("NOTHING IN HERE");
-//         res.json({success: false, msg: 'need a userID'});
-//     }
-//     else {
-//         //get all leagues with userID
-//         var leagueMap = [];
-//         var counter = 0;
-//
-//         League.find({}, function(err, leagues) {
-//             leagues.forEach(function(league) {
-//                 if(league.)
-//                 leagueMap[counter] = league;
-//             });
-//         });
-//     }
-//     //console.log(req.params.playerID);
-//
-//     //mongo.get(req.paramsPlayerID)
-// });
-
 
 router.post('/add', function (req, res){
     let newLeague = League ({

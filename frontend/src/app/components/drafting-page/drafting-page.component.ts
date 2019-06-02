@@ -3,6 +3,7 @@ import { LeagueService } from "../../services/league.service";
 import { ActivatedRoute } from '@angular/router'
 import { League } from "../../models/league.model";
 import { DraftService } from "../../services/draft.service";
+import {Draft} from "../../models/draft.model";
 
 @Component({
   selector: 'app-drafting-page',
@@ -26,6 +27,7 @@ export class DraftingPageComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       if(params) {
         this.selected_league_id = params.get("leagueId");
+        this.draftService.setSelectedLeague(this.selected_league_id);
       }
     });
     console.log("id: " + this.selected_league_id);
@@ -60,14 +62,32 @@ export class DraftingPageComponent implements OnInit {
     this.draftService.newDraft.leagueName = this.league_name;
     this.draftService.newDraft.participantName = this.selected_user;
     this.draftService.newDraft.proName = this.selected_pro;
-    this.draftService.addDraft().subscribe(res => {
-      console.log(res);
+    this.draftService.getDraftByLeague(this.selected_league_id).subscribe(res => {
+      //let temp_arr = [];
+      let check_exist : Boolean = true;
+      let arr = JSON.parse(JSON.stringify(res));
+      for(let i = 0; i < arr.length; i++) {
+        let temp : Draft = arr[i];
+        //temp_arr.push(temp.proName);
+        if(this.selected_pro === temp.proName) {check_exist = false;}
+      }
+      if(check_exist) {
+        this.draftService.addDraft().subscribe(res => {
+          console.log(res);
+        }, err => {
+          console.log(err);
+        });
+      }
+      else {
+        console.log("pro is already selected");
+      }
     }, err => {
       console.log(err);
     });
     console.log("init draft obj fields");
-    //console.log(this.selected_pro);
-    //console.log(this.selected_user);
+  }
 
+  onClickPlay() {
+    console.log("why hello there");
   }
 }

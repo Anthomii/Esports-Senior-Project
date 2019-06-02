@@ -22,4 +22,28 @@ module.exports.getByPartAndLeague = function (part_name, leagueId, callback) {
     Draft.find(query, callback);
 };
 
+module.exports.getByLeague = function (leagueId, callback) {
+    const query = {leagueId:leagueId};
+    Draft.find(query, callback);
+};
 
+
+module.exports.deleteByLeagueAndPart = function (league_id, part_name, callback) {
+    const query = {participantName: part_name, leagueId:league_id};
+    Draft.deleteOne(query, callback);
+};
+
+module.exports.deleteByLeague = function (league_id, callback) {
+    const query = {leagueId:league_id};
+    Draft.deleteMany(query, callback);
+};
+
+module.exports.deleteByPart = function (part_name, callback) {
+    const query = {participantName: part_name};
+    Draft.deleteMany(query, callback);
+};
+
+module.exports.deleteByLeagueAndPro = function (league_id, pro_name, callback) {
+    const query = {leagueId:league_id, proName: pro_name};
+    Draft.deleteOne(query, callback);
+};

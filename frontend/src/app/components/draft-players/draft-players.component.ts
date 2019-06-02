@@ -15,13 +15,15 @@ export class DraftPlayersComponent implements OnInit {
 
   ngOnInit() {
       this.player_list = this.playerService.getPlayers();
-      console.log(this.player_list);
+      console.log("my player list :" + this.player_list);
+
         // .subscribe((players) => {
         // console.log(players);
   }
 
   clickOnPro(pro : string) {
     this.draftService.setSelectedPro(pro);
+
   }
 
 
