@@ -15,6 +15,14 @@ module.exports.getByAccountId = function (accountID, callback) {
     Player.findOne(query, callback);
 };
 
+module.exports.getByName = function (name, callback) {
+    const query = {name: name};
+    Player.findOne(query, callback);
+};
+
+
+
+
 module.exports.getAllPlayers = function () {
     Player.find();
 };

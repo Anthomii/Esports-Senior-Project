@@ -24,6 +24,9 @@ export class DraftingPageComponent implements OnInit {
 
   pro_players_list : any;
 
+  points_user : string;
+  points_points : Number;
+
   constructor(private leagueService : LeagueService, private activatedRoute:ActivatedRoute, private draftService:DraftService,
               private playerService : PlayerService) { }
 
@@ -51,6 +54,15 @@ export class DraftingPageComponent implements OnInit {
       this.draftService.getSelectedPro().subscribe(res => {
         this.selected_pro = res;
       });
+      this.draftService.getPointsUser().subscribe(res => {
+        this.points_user = res;
+        console.log(this.points_user);
+        this.draftService.getPointsPoints().subscribe(res => {
+          this.points_points = res;
+          console.log(this.points_points);
+        });
+      });
+
     });
   }
 
@@ -100,7 +112,7 @@ export class DraftingPageComponent implements OnInit {
         if(player.points === undefined) {
           player.points = new Number;
         }
-        player.points = 1;
+        player.points = Math.floor(Math.random() * 100);
         console.log(player);
         this.playerService.setNewPlayer(player.accountID, player.name, player.avatar, player.points);
         this.playerService.updatePlayer().subscribe(res => {
@@ -110,6 +122,10 @@ export class DraftingPageComponent implements OnInit {
         });
         this.playerService.resetNewPlayer();
       }
+      //player given points
+      //add up points per user
+      //per draft, look at player points... need to add on league/user
+
 
     }, err => {
       console.log(err);

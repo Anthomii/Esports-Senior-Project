@@ -13,9 +13,9 @@ const Player = require('../models/player');
 //METHODS HERE IMPLEMENTS GET/POST/DELETE
 
 //get
-router.get('/:playerID?', (req, res) => {
+router.get('/:playerName?', (req, res) => {
 
-    if(req.params.playerID === undefined) {
+    if(req.params.playerName === undefined) {
         //console.log("NOTHING IN HERE");
         Player.find({}, function(err, docs) {
             if (!err){
@@ -27,7 +27,7 @@ router.get('/:playerID?', (req, res) => {
     else {
         //get unique id - player
 
-        Player.getByAccountId(req.params.playerID, function (err, id) {
+        Player.getByName(req.params.playerName, function (err, id) {
             if(err) throw (err);
             if(!id) {return res.json({success: false, msg: "id not found"});}
             console.log(id);

@@ -14,6 +14,9 @@ export class DraftService {
   private selected_pro = new BehaviorSubject<string>("default selected pro player");
   private selected_league = new BehaviorSubject<string>("default selected league");
   private pro_players_list = new BehaviorSubject<any[]>([]);
+  private points_user = new BehaviorSubject<string>("default points user");
+  private points_points = new BehaviorSubject<Number>(0);
+
 
   newDraft : Draft = {
     leagueId : "",
@@ -62,6 +65,22 @@ export class DraftService {
 
   setProPlayers(players : any[]) {
     this.pro_players_list.next(players);
+  }
+
+  getPointsUser() {
+    return this.points_user.asObservable();
+  }
+
+  setPointsUser(user : string) {
+    this.points_user.next(user);
+  }
+
+  getPointsPoints() {
+    return this.points_points.asObservable();
+  }
+
+  setPointsPoints(points  : Number) {
+    this.points_points.next(points);
   }
 
 

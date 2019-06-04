@@ -51,6 +51,10 @@ export class PlayerService {
     return data;
   }
 
+  getPlayer(player : string) {
+    return this.http.get(`${this.uri}/players/${player}`);
+  }
+
   addPlayer(player) {
     return this.http.post(`${this.uri}/players/add`, player);
   }
