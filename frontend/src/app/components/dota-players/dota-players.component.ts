@@ -7,13 +7,15 @@ import { LeagueService } from '../../services/league.service';
   styleUrls: ['./dota-players.component.css']
 })
 export class DotaPlayersComponent implements OnInit {
-   players;
-   leagues;
+  players;
+  leagues;
+
   constructor(private leagueService: LeagueService) { }
 
   ngOnInit() {
-     this.players = this.leagueService.getPlayers();
+
      this.leagues = this.leagueService.getLeagues();
+     console.log(this.players);
 
   }
 

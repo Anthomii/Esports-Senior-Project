@@ -20,6 +20,9 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
+const players = require('./routes/playerController');
+const leagues = require('./routes/leagueController');
+const drafts = require('./routes/draftController');
 
 const port = 3000;
 
@@ -38,6 +41,9 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/players', players);
+app.use('/leagues', leagues);
+app.use('/drafts', drafts);
 
 // Index Route
 app.get('/', (req, res) => {

@@ -1,0 +1,16 @@
+<!--<ul>-->
+  <!--<div *ngFor="let player of players | async">-->
+    <!--&lt;!&ndash;<li *ngIf="league.tier == 'professional'">&ndash;&gt;-->
+      <!--&lt;!&ndash;<td>{{ player.name }}</td>&ndash;&gt;-->
+    <!--derp-->
+    <!--&lt;!&ndash;</li>&ndash;&gt;-->
+  <!--</div>-->
+<!--</ul>-->
+<!--<p> derp </p>-->
+
+<div class = "my_players">
+  <a (click)="clickOnPro(player.name)" *ngFor="let player of player_list | async">
+    {{ player.name }}
+    <br>
+  </a>
+</div>
