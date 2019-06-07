@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       if(data.success) { //ts-ignore
             // @ts-ignore
         this.authService.storeUserData(data.token, data.user);
-            this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
+            this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 10000});
             this.router.navigate(['dashboard']);
         } else {
             // @ts-ignore
